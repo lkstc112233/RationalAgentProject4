@@ -84,6 +84,9 @@ public class LoadedData implements Iterable<Integer> {
         throw new IllegalArgumentException("Unexpected dice or side in getProbabilityOfRolling.");
     }
 
+    public int getLength() {
+        return observations.size();
+    }
 
     /**
      * Provides support for <b>for-each</b> loop.
