@@ -63,5 +63,13 @@ public class CommandLineMain {
             }
             currentIndex += 1;
         }
+        System.out.println(largestLastLayer);
+        for (int i = 0; i < data.getLength(); ++i) {
+            System.out.print(fromWhere[i][0]);
+            System.out.print(", ");
+            System.out.print(fromWhere[i][1]);
+            System.out.print(", ");
+            System.out.println(fromWhere[i][2]);
+        }
     }
 }
