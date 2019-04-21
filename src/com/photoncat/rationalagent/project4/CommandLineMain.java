@@ -9,7 +9,7 @@ import java.io.FileReader;
 
 public class CommandLineMain {
     public static void main(String[] args) {
-        if (args.length < 3) {
+        if (args.length < 1) {
             System.err.println("Usage: ");
             System.err.println("CommandLineMain inputFilename");
             System.exit(0xDEADBEEF);
