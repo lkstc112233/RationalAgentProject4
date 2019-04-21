@@ -22,7 +22,7 @@ public class CommandLineMain {
             e.printStackTrace();
             System.exit(1);
         }
-        // TODO: handle the file.
+        // Handle the file.
         double[] probabilityLastLayer = null;
         int[][] fromWhere = new int[data.getLength()][3];
         int currentIndex = 0;
