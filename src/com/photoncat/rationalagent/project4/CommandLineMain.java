@@ -20,6 +20,7 @@ public class CommandLineMain {
             data = FileLoader.load(new FileReader(inputFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.exit(1);
         }
         // TODO: handle the file.
         double[] probabilityLastLayer = null;
