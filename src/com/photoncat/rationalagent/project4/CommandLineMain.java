@@ -55,7 +55,7 @@ public class CommandLineMain {
         }
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < data.getLength(); ++i) {
-            result.add(largestLastLayer);
+            result.add(largestLastLayer + 1);
             largestLastLayer = fromWhere[data.getLength() - 1 - i][largestLastLayer];
         }
         Collections.reverse(result);
@@ -104,7 +104,7 @@ public class CommandLineMain {
         }
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < data.getLength(); ++i) {
-            result.add(largestLastLayer);
+            result.add(largestLastLayer + 1);
             largestLastLayer = fromWhere[data.getLength() - 1 - i][largestLastLayer];
         }
         Collections.reverse(result);
@@ -132,6 +132,8 @@ public class CommandLineMain {
             System.out.print(", ");
         }
         System.out.println();
+        System.out.print("With a probability: ");
+        System.out.println(data.calculateProbabilityOfGivenStates(result));
         // Handle the file.
         result = handleByLogAddition(data);
         for (int i : result) {
@@ -139,5 +141,7 @@ public class CommandLineMain {
             System.out.print(", ");
         }
         System.out.println();
+        System.out.print("With a probability: ");
+        System.out.println(data.calculateProbabilityOfGivenStates(result));
     }
 }
