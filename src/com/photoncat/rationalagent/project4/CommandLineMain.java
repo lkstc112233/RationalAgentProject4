@@ -79,12 +79,12 @@ public class CommandLineMain {
                 for (int i = 0; i < 3; ++i) {
                     for (int j = 0; j < 3; ++j) {
                         double pTransfer = i == j ? data.getLogProbabilityOfNotSwitching() : data.getLogProbabilityOfSwitching();
-                        newLogProbability[i][j] = logProbabilityLastLayer[i] + pTransfer + data.getProbabilityOfRolling(j + 1, observation);
+                        newLogProbability[i][j] = logProbabilityLastLayer[i] + pTransfer + data.getLogProbabilityOfRolling(j + 1, observation);
                     }
                 }
-                double globalMax = 0;
+                double globalMax = -Double.MAX_VALUE;
                 for (int i = 0; i < 3; ++i) {
-                    double max = 0;
+                    double max = -Double.MAX_VALUE;
                     int maxId = 0;
                     for (int j = 0; j < 3; ++j) {
                         if (newLogProbability[i][j] > max) {
