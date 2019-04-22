@@ -6,23 +6,12 @@ import com.photoncat.rationalagent.project4.util.LoadedData;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CommandLineMain {
-    public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println("Usage: ");
-            System.err.println("CommandLineMain inputFilename");
-            System.exit(0xDEADBEEF);
-        }
-        File inputFile = new File(args[0]);
-        LoadedData data = null;
-        try {
-            data = FileLoader.load(new FileReader(inputFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        // Handle the file.
+    private static List<Integer> handleByMultiplication(LoadedData data) {
         double[] probabilityLastLayer = null;
         int[][] fromWhere = new int[data.getLength()][3];
         int currentIndex = 0;
@@ -64,13 +53,35 @@ public class CommandLineMain {
             }
             currentIndex += 1;
         }
-        System.out.println(largestLastLayer);
+        List<Integer> result = new ArrayList<>();
         for (int i = 0; i < data.getLength(); ++i) {
-            System.out.print(fromWhere[i][0]);
-            System.out.print(", ");
-            System.out.print(fromWhere[i][1]);
-            System.out.print(", ");
-            System.out.println(fromWhere[i][2]);
+            result.add(largestLastLayer);
+            largestLastLayer = fromWhere[data.getLength() - 1 - i][largestLastLayer];
         }
+        Collections.reverse(result);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        if (args.length < 1) {
+            System.err.println("Usage: ");
+            System.err.println("CommandLineMain inputFilename");
+            System.exit(0xDEADBEEF);
+        }
+        File inputFile = new File(args[0]);
+        LoadedData data = null;
+        try {
+            data = FileLoader.load(new FileReader(inputFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        // Handle the file.
+        List<Integer> result = handleByMultiplication(data);
+        for (int i : result) {
+            System.out.print(i);
+            System.out.print(", ");
+        }
+        System.out.println();
     }
 }
