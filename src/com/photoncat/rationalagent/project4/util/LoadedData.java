@@ -83,6 +83,25 @@ public class LoadedData implements Iterable<Integer> {
         return probability;
     }
 
+    public double calculateProbabilityOfGivenStatesThroughLog(List<Integer> inputStates) {
+        double probability = 0;
+        if (inputStates.size() != observations.size()) {
+            throw new IllegalArgumentException("Observations mismatches input states in count.");
+        }
+        int lastState = 0;
+        for (int i = 0; i < inputStates.size(); ++i) {
+            if (lastState == 0) {
+                probability = Math.log(1.0 / 3) + getLogProbabilityOfRolling(inputStates.get(i), observations.get(i));
+            } else {
+                double transferProbability =
+                        inputStates.get(i) == lastState ? logProbabilityOfNotSwitching : logProbabilityOfSwitching;
+                probability += transferProbability + getLogProbabilityOfRolling(inputStates.get(i), observations.get(i));
+            }
+            lastState = inputStates.get(i);
+        }
+        return reverseLog(probability);
+    }
+
     public double getProbabilityOfNotSwitching() {
         return probabilityOfNotSwitching;
     }

@@ -134,6 +134,8 @@ public class CommandLineMain {
         System.out.println();
         System.out.print("With a probability: ");
         System.out.println(data.calculateProbabilityOfGivenStates(result));
+        System.out.print("Or calculate with log: ");
+        System.out.println(data.calculateProbabilityOfGivenStatesThroughLog(result));
         // Handle the file.
         result = handleByLogAddition(data);
         for (int i : result) {
@@ -143,5 +145,7 @@ public class CommandLineMain {
         System.out.println();
         System.out.print("With a probability: ");
         System.out.println(data.calculateProbabilityOfGivenStates(result));
+        System.out.print("Or calculate with log: ");
+        System.out.println(data.calculateProbabilityOfGivenStatesThroughLog(result));
     }
 }
