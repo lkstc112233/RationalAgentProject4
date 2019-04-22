@@ -132,5 +132,12 @@ public class CommandLineMain {
             System.out.print(", ");
         }
         System.out.println();
+        // Handle the file.
+        result = handleByLogAddition(data);
+        for (int i : result) {
+            System.out.print(i);
+            System.out.print(", ");
+        }
+        System.out.println();
     }
 }
