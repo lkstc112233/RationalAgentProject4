@@ -62,6 +62,55 @@ public class CommandLineMain {
         return result;
     }
 
+    private static List<Integer> handleByLogAddition(LoadedData data) {
+        double[] logProbabilityLastLayer = null;
+        int[][] fromWhere = new int[data.getLength()][3];
+        int currentIndex = 0;
+        int largestLastLayer = 0;
+        final double INITIAL_PROBABILITY = Math.log(1.0 / 3);
+        for (Integer observation: data) {
+            if (logProbabilityLastLayer == null) {
+                logProbabilityLastLayer = new double[3];
+                for (int i = 0; i < 3; ++i) {
+                    logProbabilityLastLayer[i] = INITIAL_PROBABILITY + data.getLogProbabilityOfRolling(i + 1, observation);
+                }
+            } else {
+                double[][] newLogProbability = new double[3][3];
+                for (int i = 0; i < 3; ++i) {
+                    for (int j = 0; j < 3; ++j) {
+                        double pTransfer = i == j ? data.getLogProbabilityOfNotSwitching() : data.getLogProbabilityOfSwitching();
+                        newLogProbability[i][j] = logProbabilityLastLayer[i] + pTransfer + data.getProbabilityOfRolling(j + 1, observation);
+                    }
+                }
+                double globalMax = 0;
+                for (int i = 0; i < 3; ++i) {
+                    double max = 0;
+                    int maxId = 0;
+                    for (int j = 0; j < 3; ++j) {
+                        if (newLogProbability[i][j] > max) {
+                            max = newLogProbability[i][j];
+                            maxId = j;
+                        }
+                    }
+                    logProbabilityLastLayer[i] = max;
+                    fromWhere[currentIndex][i] = maxId;
+                    if (globalMax < max) {
+                        globalMax = max;
+                        largestLastLayer = i;
+                    }
+                }
+            }
+            currentIndex += 1;
+        }
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < data.getLength(); ++i) {
+            result.add(largestLastLayer);
+            largestLastLayer = fromWhere[data.getLength() - 1 - i][largestLastLayer];
+        }
+        Collections.reverse(result);
+        return result;
+    }
+
     public static void main(String[] args) {
         if (args.length < 1) {
             System.err.println("Usage: ");
