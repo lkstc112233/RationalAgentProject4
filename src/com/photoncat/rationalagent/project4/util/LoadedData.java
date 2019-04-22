@@ -60,7 +60,7 @@ public class LoadedData implements Iterable<Integer> {
         this.observations.addAll(observations);
     }
 
-    public static double reverseLog(double loggedValue) {
+    static double reverseLog(double loggedValue) {
         return Math.pow(Math.E, loggedValue);
     }
 
