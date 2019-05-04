@@ -38,8 +38,8 @@ public class CommandLineMain {
                     double max = 0;
                     int maxId = 0;
                     for (int j = 0; j < 3; ++j) {
-                        if (newProbability[i][j] > max) {
-                            max = newProbability[i][j];
+                        if (newProbability[j][i] > max) {
+                            max = newProbability[j][i];
                             maxId = j;
                         }
                     }
