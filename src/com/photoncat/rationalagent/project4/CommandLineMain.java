@@ -87,8 +87,8 @@ public class CommandLineMain {
                     double max = -Double.MAX_VALUE;
                     int maxId = 0;
                     for (int j = 0; j < 3; ++j) {
-                        if (newLogProbability[i][j] > max) {
-                            max = newLogProbability[i][j];
+                        if (newLogProbability[j][i] > max) {
+                            max = newLogProbability[j][i];
                             maxId = j;
                         }
                     }
